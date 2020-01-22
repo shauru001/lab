@@ -19,10 +19,10 @@ if [ $group_id = 1 ]; then
     optsr_id=$(echo $optsr_user | tr [A-Z] [a-z])
 	    if [ $optsr_user = 0 ]; then
             echo "add all optsr users"
-            ~/playbook/user/ansible-playbook create_optsr_*.yml
+            ansible-playbook ./playbook/user/create_optsr_*.yml
         else
             echo "add $optsr_user"
-            ~/playbook/user/ansible-playbook create_optsr_$optsr_id.yml
+            ansible-playbook ./playbook/user/create_optsr_$optsr_id.yml
         fi
 elif [ $group_id = 2 ]; then
 	echo "user list: "${group_optjr[@]}
@@ -31,10 +31,10 @@ elif [ $group_id = 2 ]; then
     optjr_id=$(echo $optjr_user | tr [A-Z] [a-z])
 	    if [ $optjr_user = 0 ]; then
             echo "add all optjr users"
-            ~/playbook/user/ansible-playbook create_optjr_*.yml
+            ansible-playbook ./playbook/user/create_optjr_*.yml
         else
             echo "add $optjr_user"
-            ~/playbook/user/ansible-playbook create_optsr_$optjr_id.yml
+            ansible-playbook ./playbook/user/create_optsr_$optjr_id.yml
         fi
 else
 	printf "\E[0;31;40m"
