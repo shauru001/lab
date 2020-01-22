@@ -14,7 +14,7 @@
       authorized_key:
         user: optsr1
         state: present
-        key: "{{ lookup('file', '.pubkey/opt/optsr1.pub') }}"
+        key: "{{ lookup('file', 'playbook/user/.pubkey/opt/optsr1.pub') }}"
 
     - name: Allow 'optsr1' sudo permission 
       lineinfile:
