@@ -11,23 +11,17 @@ echo -n "Choose Group: (1)OPT-Senior (2)OPT-Junior (3)DEV-Senior (4)DEV-Junior (
 printf "\E[0m"
 read group_id
 if [ $group_id = 1 ]; then
-    echo ${group_optsr[@]}
+	echo "user list: "${group_optsr[@]}
     echo -n "Input 0 for all users or keyin one username:"
-    read username
-    if [ $username = 0 ]; then
-        echo "add all users"
-    else
-        echo "add $username"
+	read optsr_user
+	echo $optsr_user
 elif [ $group_id = 2 ]; then
-    echo ${group_optjr[@]}
+	echo "user list: "${group_optjr[@]}
     echo -n "Input 0 for all users or keyin one username:"
-    read username
-    if [ $username = 0 ]; then
-        echo "add all users"
-    else
-        echo "add $username"
+	read optjr_user
+	echo $optjr_user
 else
-    printf "\E[0;31;40m"
-    echo "not opt user~"
-    printf "\E[0m"
+	printf "\E[0;31;40m"
+	echo "not opt user~"
+	printf "\E[0m"
 fi
