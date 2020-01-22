@@ -1,0 +1,21 @@
+#localhost ansible_connection=local ansible_user=ubuntu ansible_python_interpreter=python3.6
+localhost ansible_connection=local ansible_user=ubuntu
+
+[alias]
+local_vm_1 ansible_ssh_host=192.168.76.3 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+local_vm_2 ansible_ssh_host=192.168.76.9 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+
+[local]
+local_vm_1
+
+[ebeta]
+local_vm_1
+
+[ebeta-db]
+local_vm_1
+
+[prod]
+local_vm_2
+
+[prod-db]
+local_vm_2
