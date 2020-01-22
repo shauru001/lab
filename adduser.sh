@@ -12,7 +12,7 @@ printf "\E[0m"
 read group_id
 if [ $group_id = 1 ]; then
     echo ${group_optsr[@]}
-    echo -n "Input "0" for all users or keyin one username: "
+    echo -n "Input 0 for all users or keyin one username:"
     read username
     if [ $username = 0 ]; then
         echo "add all users"
@@ -20,7 +20,7 @@ if [ $group_id = 1 ]; then
         echo "add $username"
 elif [ $group_id = 2 ]; then
     echo ${group_optjr[@]}
-    echo -n "Input "0" for all users or keyin one username: "
+    echo -n "Input 0 for all users or keyin one username:"
     if [ $username = 0 ]; then
         echo "add all users"
     else
