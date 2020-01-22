@@ -21,6 +21,7 @@ if [ $group_id = 1 ]; then
 elif [ $group_id = 2 ]; then
     echo ${group_optjr[@]}
     echo -n "Input 0 for all users or keyin one username:"
+    read username
     if [ $username = 0 ]; then
         echo "add all users"
     else
