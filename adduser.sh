@@ -14,14 +14,14 @@ if [ $group_id = 1 ]; then
     echo ${group_optsr[@]}
     echo -n "Input "0" for all users or keyin one username: "
     read username
-    if [ $user_id = 0 ]; then
+    if [ $username = 0 ]; then
         echo "add all users"
     else
         echo "add $username"
 elif [ $group_id = 2 ]; then
     echo ${group_optjr[@]}
     echo -n "Input "0" for all users or keyin one username: "
-    if [ $user_id = 0 ]; then
+    if [ $username = 0 ]; then
         echo "add all users"
     else
         echo "add $username"
