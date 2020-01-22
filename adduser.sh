@@ -12,20 +12,22 @@ printf "\E[0m"
 read group_id
 if [ $group_id = 1 ]; then
 	echo "user list: "${group_optsr[@]}
-	echo -n "Input 0 for all users or keyin one username:"
+    echo -n "Input 0 for all users or keyin one username:"
 	read optsr_user
-		if [ $optsr_user = 0 ]; then
-			echo "add all users"
-		else
-			echo "add $optsr_user"
+	    if [ $optsr_user = 0 ]; then
+            echo "add all users"
+        else
+            echo "add $optsr_user"
+        fi
 elif [ $group_id = 2 ]; then
 	echo "user list: "${group_optjr[@]}
-	echo -n "Input 0 for all users or keyin one username:"
+    echo -n "Input 0 for all users or keyin one username:"
 	read optjr_user
-		if [ $optjr_user = 0 ]; then
-			echo "add all users"
-		else
-			echo "add $optjr_user"
+	    if [ $optjr_user = 0 ]; then
+            echo "add all users"
+        else
+            echo "add $optjr_user"
+        fi
 else
 	printf "\E[0;31;40m"
 	echo "not opt user~"
