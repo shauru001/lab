@@ -1,0 +1,36 @@
+---
+
+- hosts: optsr
+  become: true
+  become_user: root
+  tasks:
+
+    - name: Create user 'optsr1'
+      user:
+        name: optsr1
+        comment: optsr1
+
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: optsr1
+        state: present
+        key: "{{ lookup('file', '.pubkey/optsr1.pub') }}"
+
+    - name: Add 'optsr1' to ssh AllowUsers
+      replace:
+        backup: yes
+        path: /etc/ssh/sshd_config
+        regexp: '^(AllowUsers(?!.*\b optsr1\b).*)$'
+        replace: '\1 optsr1'
+
+    - name: Reload service sshd
+      systemd:
+        name: sshd
+        state: reloaded
+        
+    - name: Add 'optsr1' to sudo group
+      replace:
+        backup: yes
+        path: /etc/sudoers.d/optsr
+        regexp: '^(User_Alias OPTSR=(?!.*\b optsr1\b).*)$'
+        replace: '\1 optsr1'
