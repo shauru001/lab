@@ -1,36 +1,36 @@
 ---
 
-- hosts: optsr
+- hosts: stage2
   become: true
   become_user: root
   tasks:
-
-    - name: Create user 'optsr1'
+#user_account & user_group在執行腳本時代入變數
+    - name: Create user 'user_account'
       user:
-        name: optsr1
-        comment: optsr1
+        name: user_account
+        comment: user_account
 
     - name: Set authorized key taken from file
       authorized_key:
-        user: optsr1
+        user: user_account
         state: present
-        key: "{{ lookup('file', '.pubkey/optsr1.pub') }}"
+        key: "{{ lookup('file', '.pubkey/user_account.pub') }}"
 
-    - name: Add 'optsr1' to ssh AllowUsers
+    - name: Add 'user_account' to ssh AllowUsers
       replace:
         backup: yes
         path: /etc/ssh/sshd_config
-        regexp: '^(AllowUsers(?!.*\b optsr1\b).*)$'
-        replace: '\1 optsr1'
+        regexp: '^(AllowUsers(?!.*\b user_account\b).*)$'
+        replace: '\1 user_account'
 
     - name: Reload service sshd
       systemd:
         name: sshd
         state: reloaded
         
-    - name: Add 'optsr1' to sudo group
+    - name: Add 'user_account' to sudo group
       replace:
         backup: yes
-        path: /etc/sudoers.d/optsr
-        regexp: '^(User_Alias OPTSR=(?!.*\b optsr1\b).*)$'
-        replace: '\1 optsr1'
+        path: /etc/sudoers.d/user_group
+        regexp: '^(User_Alias OPTSR=(?!.*user_account).*)$' #比對user_account前後不管
+        replace: '\1, user_account' #前方要插入逗點: user1, user2, ...
