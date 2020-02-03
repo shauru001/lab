@@ -8,6 +8,7 @@
     - name: Create user 'user_account'
       user:
         name: user_account
+        shell: /bin/bash
         comment: user_account
 
     - name: Set authorized key taken from file
