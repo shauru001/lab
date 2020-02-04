@@ -15,7 +15,7 @@
       authorized_key:
         user: user_account
         state: present
-        key: "{{ lookup('file', '.pubkey/user_account.pub') }}"
+        key: "{{ lookup('file', '/usr/local/.remote/auth/user_account.pub') }}"
 
     - name: Add 'user_account' to ssh AllowUsers
       replace:
@@ -33,5 +33,5 @@
       replace:
         backup: yes
         path: /etc/sudoers.d/user_group
-        regexp: '^(User_Alias OPTSR=(?!.*user_account).*)$' #比對user_account前後不管
+        regexp: '^(User_Alias OPTSR=(?!.*user_account).*)$' #比對User_Alias開頭,比對user_account前後不管(忽略空格跟逗點)
         replace: '\1, user_account' #前方要插入逗點: user1, user2, ...
