@@ -1,0 +1,14 @@
+---
+
+- hosts: stage
+  become: true
+  become_user: root
+  tasks:
+
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: user_account
+        state: present 
+        #exclusive為真表示不保留舊的公鑰
+        exclusive: true
+        key: "{{ lookup('file', '/usr/local/.remote/auth/user_account.pub') }}"
