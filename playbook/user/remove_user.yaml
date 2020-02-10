@@ -1,0 +1,30 @@
+---
+
+- hosts: stage
+  become: true
+  become_user: root
+  tasks:
+
+    - name: Remove the user 'user_account'
+      user:
+        name: user_account
+        state: absent
+        remove: yes
+
+    - name: Remove 'user_account' sudo file
+      blockinfile:
+        path: /etc/sudoers
+        marker: "DEV01 ALL=(ALL) NOPASSWD: /bin/su - jenkins"
+        content: ""
+
+    - name: Remove 'DEV01' ssh login
+      replace:
+        path: /etc/ssh/sshd_config
+        after: 'AllowUsers'
+        regexp: 'DEV01'
+        replace: ''
+
+    - name: Reload service sshd
+      systemd:
+        name: sshd
+        state: reloaded
