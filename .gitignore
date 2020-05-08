@@ -1,3 +1,4 @@
 .gitsecret/keys/random_seed
 !*.secret
 test-vault.yml
+test2-vault.yml
