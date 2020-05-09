@@ -2,3 +2,4 @@
 !*.secret
 test-vault.yml
 test2-vault.yml
+vault.yml
