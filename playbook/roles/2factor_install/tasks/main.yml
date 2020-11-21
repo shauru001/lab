@@ -1,0 +1,22 @@
+- name: install google authenticator
+  become: yes
+  apt:
+    name: 'libpam-google-authenticator'
+    update_cache: yes
+
+- name: update pam file
+  template:
+    src: pam_sshd
+    dest: /etc/pam.d/sshd
+    mode: 0640
+
+- name: update sshd_config
+  template:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    mode: 0600
+
+- name: reload sshd service
+  systemd:
+    name: sshd
+    daemon_reload: yes

@@ -1,0 +1,51 @@
+---
+- hosts: test
+ 
+  tasks:
+ 
+  - name: Creates directory
+    file:
+      path: ~/.ssh/newsshkey
+      state: directory
+ 
+  - name: Create New SSH Key Pair
+    command: ssh-keygen -f id_rsa -t rsa -N '' -f ~/.ssh/{{ user_account }}/id_rsa
+ 
+  - fetch:
+      src: ~/.ssh/newsshkey/id_rsa.pub
+      dest: pubkeys/{{ inventory_hostname }}.pub
+      flat: yes
+ 
+  - name: Remove Old Keys
+    command: rm -rf ~/.ssh/id_rsa
+ 
+  - name: Remove Old Pub Key
+    command: rm -rf ~/.ssh/id_rsa.pub
+ 
+  - name: Move New Key
+    command: mv ~/.ssh/newsshkey/id_rsa ~/.ssh/
+ 
+  - name: Move New Pub Keys
+    command: mv ~/.ssh/newsshkey/id_rsa.pub ~/.ssh/
+ 
+  - name: Change id_rsa Permissions
+    command: chmod 400 ~/.ssh/id_rsa
+ 
+  - name: Set authorized key, removing all the authorized key already set
+    authorized_key:
+      user: root
+      key: '{{ item }}'
+      state: present
+      exclusive: True
+    with_file:
+      - pubkeys/{{ inventory_hostname }}.pub
+ 
+  - fetch:
+      src: ~/.ssh/id_rsa
+      dest: ~/.ssh/id_rsa.{{ inventory_hostname }}
+      flat: yes
+ 
+  - name: Removing existing folder
+    file:
+      path: ~/.ssh/newsshkey
+      state: absent

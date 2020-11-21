@@ -1,0 +1,37 @@
+- include_tasks: vars.yml
+
+- name: create user {{ user_account }}
+  user:
+    name: '{{ user_account }}'
+    shell: /bin/bash
+    create_home: true
+    comment: '{{ user_account }}'
+    groups: '{{ user_group }}'
+    append: yes
+    generate_ssh_key: yes
+    ssh_key_comment : '{{ key_comment }}'
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/id_rsa
+
+- name: public key stat
+  stat: 
+    path: "{{ ssh_dir }}/id_rsa.pub"
+  register: pubkey_result
+
+- name: create authorized_keys
+  command: mv {{ ssh_dir }}/id_rsa.pub {{ ssh_dir }}/authorized_keys
+  when: pubkey_result.stat.exists
+
+- include_tasks: fetch.yml
+
+#- name: ssh AllowUsers
+#  replace:
+#    backup: yes
+#    path: /etc/ssh/sshd_config
+#    regexp: '^(AllowUsers(?!.*\b {{ user_account }}\b).*)$'
+#    replace: '\1 {{ user_account }}'
+
+#- name: reload sshd service
+#  systemd:
+#    name: sshd
+#    state: reloaded

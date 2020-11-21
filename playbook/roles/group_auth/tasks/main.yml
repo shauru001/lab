@@ -1,0 +1,13 @@
+- include_vars: auth_vars.yml
+
+- group:
+    name: '{{ item.group }}'
+    state: present
+  with_items: '{{ base_groups }}'
+
+- name: sudoers config
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/sudoers
+    mode: 0440
+    validate: '/usr/sbin/visudo -cf %s'

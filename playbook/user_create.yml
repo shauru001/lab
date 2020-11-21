@@ -1,0 +1,9 @@
+---
+
+- hosts: group_init
+  become: true
+  become_user: root
+  tasks:
+  - include_role:
+      name: user_mode
+      tasks_from: create.yml

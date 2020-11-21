@@ -1,0 +1,11 @@
+{% for item in base_groups %}
+{% if item.group == "op_group" %}
+  %{{ item.group }} ALL=(ALL:ALL) NOPASSWD: {{ cmd.op }}
+{% endif %}
+{% if item.group == "rd_group" %}
+  %{{ item.group }} ALL=(ALL) NOPASSWD: {{ cmd.rd }}
+{% endif %}
+{% if item.group == "ci_group" %}
+  %{{ item.group }} ALL=(ALL) NOPASSWD: {{ cmd.ci }}
+{% endif %}
+{% endfor %}

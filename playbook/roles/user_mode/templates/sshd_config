@@ -1,0 +1,14 @@
+Port 5678
+ListenAddress 0.0.0.0
+StrictModes yes
+MaxAuthTries 5
+AllowUsers ubuntu
+PubkeyAuthentication yes
+AuthenticationMethods publickey,keyboard-interactive
+PasswordAuthentication no
+ChallengeResponseAuthentication yes
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server

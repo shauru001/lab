@@ -1,0 +1,12 @@
+base_groups:
+  - group: op_group
+    sudo: true
+  - group: rd_group
+    sudo: false
+  - group: ci_group
+    sudo: true
+
+cmd:
+  op: "ALL, !/usr/bin/apt remove"
+  rd: "/bin/ls, /usr/bin/du, /bin/cat, /bin/systemctl status, /bin/systemctl show"
+  ci: "ALL"

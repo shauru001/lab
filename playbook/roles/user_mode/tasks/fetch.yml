@@ -1,0 +1,18 @@
+- fetch:
+    src: "{{ ssh_dir }}/id_rsa"
+    dest: ~/.fetch/{{ user_account }}
+    validate_checksum: yes
+
+- debug: 
+    msg: "/.fetch/{{ user_account }}"
+
+- name: chmod 0600
+  delegate_to: localhost
+  file:
+    path: "{{ user_credential }}"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: ssh test
+  local_action: shell ssh {{ user_account }}@{{ ansible_host }} -i {{ user_credential }} "echo success"

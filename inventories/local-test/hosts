@@ -1,0 +1,7 @@
+localhost ansible_connection=local ansible_user=ubuntu ansible_python_interpreter=python3
+
+[alias]
+lab-mgmt-2 ansible_host=52.90.7.35 instance_id=i-09a292cd0114902be private_ip=172.31.59.249
+
+[group_init]
+lab-mgmt-2
