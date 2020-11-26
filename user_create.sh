@@ -1,12 +1,20 @@
-#!/bin/bash
+#!/bin/bash -x
 
 site=$1
-u_name=$2
-g_name=$3
-msg=`date +%s`
+uName=$2
+gName=$3
+today=`date +%F`
+keyDate=`cat user_list.csv | grep $uName | cut -d, -f3`
 
-ansible-playbook playbook/user_create.yml --inventory=inventories/${site} --extra-vars "user_account=${u_name} user_group=${g_name} key_comment=${msg}"
+ansible-playbook playbook/user_create.yml --inventory=inventories/${site} --extra-vars "user_account=${uName} user_group=${gName} key_comment=${today}"
 
-echo ${u_name},${g_name},${msg} >> user_list.csv
+if [ -z $keyDate ]; then
+    cp user_list.csv user_list.csv.$today
+    echo ${uName},${gName},${today} >> user_list.csv
+else
+    cp user_list.csv user_list.csv.$today
+    egrep -lRZ "grep $uName user_list.csv" . \
+    | xargs -0 -l sed -i "s#$keyDate#$today#g" user_list.csv
+fi
 
 

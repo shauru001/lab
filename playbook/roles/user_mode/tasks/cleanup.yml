@@ -1,0 +1,11 @@
+- name: register credential
+  find:
+    paths: "{{ ssh_dir }}"
+    patterns: id_rsa*
+  register: files_to_delete
+
+- name: erase remote credential
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ files_to_delete.files }}"

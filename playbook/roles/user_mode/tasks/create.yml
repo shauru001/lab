@@ -24,14 +24,4 @@
 
 - include_tasks: fetch.yml
 
-#- name: ssh AllowUsers
-#  replace:
-#    backup: yes
-#    path: /etc/ssh/sshd_config
-#    regexp: '^(AllowUsers(?!.*\b {{ user_account }}\b).*)$'
-#    replace: '\1 {{ user_account }}'
-
-#- name: reload sshd service
-#  systemd:
-#    name: sshd
-#    state: reloaded
+- include_tasks: cleanup.yml
